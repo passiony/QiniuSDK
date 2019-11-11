@@ -8,7 +8,32 @@
 1.获得文件url
 2.下载文件
 
+## 获得上传token,添加header验证
+```cs
+        Dictionary<string, string> form = new Dictionary<string, string>();
+        form.Add("Authorization", "Bearer ffadb808-8c3d-4e82-a1f5-4dd02bc2477a");
+        SimpleHttp.HttpPost(url, form, null, (WWW wwwInfo) =>
+        {
+            Debug.Log(wwwInfo.text);
+            /**{
+                "code": 200, 
+                "message": "success", 
+                "data": {
+                    "token": "xxxxxxxxxxxx"
+                }, 
+                "timestamp": "1573436429382"
+            }
+            */
+            JObject root = JObject.Parse(wwwInfo.text);
+            int code = Convert.ToInt32(root["code"]);
+            if (code == 200)
+            {
+                //2.获得token
+                string token = Convert.ToString(root["data"]["token"]);
 
+            }
+        });
+```
 ## 上传本地文件
  ```cs
     public static void UploadFile(string key, string filePath, string token, Action<string> callback)
