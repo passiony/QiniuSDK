@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 public class Demo : MonoBehaviour
 {
@@ -35,10 +36,13 @@ public class Demo : MonoBehaviour
             {
                 //2.获得uptoken
                 string uptoken = Convert.ToString(root["data"]["token"]);
-                string key = "u3d.test.target?" + DateTime.Now;
+                string key = string.Format("u3d.{0}.target",root["timestamp"]);
                 string filePath = Application.streamingAssetsPath + "/9924317EB4DC8E3E1A604108133F837D.target";
+                string persistPath = Application.persistentDataPath + "/9924317EB4DC8E3E1A604108133F837D.target";
 
-                QiniuUtil.UploadFile(key, filePath, uptoken, (string text) => {
+                File.Copy(filePath, persistPath, true);
+
+                QiniuUtil.UploadFile(key, persistPath, uptoken, (string text) => {
                     Debug.Log(text);
                 });
             }
