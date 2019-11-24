@@ -36,7 +36,7 @@ public class Demo : MonoBehaviour
                 //2.获得uptoken
                 string uptoken = Convert.ToString(root["data"]["token"]);
                 string key = "u3d.test.target?" + DateTime.Now;
-                string filePath = "D:/9924317EB4DC8E3E1A604108133F837D.target";
+                string filePath = Application.streamingAssetsPath + "/9924317EB4DC8E3E1A604108133F837D.target";
 
                 QiniuUtil.UploadFile(key, filePath, uptoken, (string text) => {
                     Debug.Log(text);

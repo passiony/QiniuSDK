@@ -6,9 +6,6 @@
 [Bb]uild
 [Ll]ibrary/
 [Gg]oogle/
-sysinfo.txt
-*.stackdump
-StreamingAssets/
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
