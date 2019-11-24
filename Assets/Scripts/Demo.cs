@@ -9,14 +9,14 @@ public class Demo : MonoBehaviour
 
     void Start()
     {
-        TestDownload();
+        TestUpload();
     }
 
     public static void TestUpload()
     {
         //1.请求Token，添加header验证
         Dictionary<string, string> form = new Dictionary<string, string>();
-        form.Add("Authorization", "Bearer ffadb808-8c3d-4e82-a1f5-4dd02bc2477a");
+        form.Add("Authorization", "Bearer 9701d8d0-f932-4648-8d08-1fc9fff8b895");
         SimpleHttp.HttpPost(url, form, null, (WWW wwwInfo) =>
         {
             Debug.Log(wwwInfo.text);
@@ -33,12 +33,12 @@ public class Demo : MonoBehaviour
             int code = Convert.ToInt32(root["code"]);
             if (code == 200)
             {
-                //2.获得token
-                string token = Convert.ToString(root["data"]["token"]);
-                string key = "TestImage";
-                string filePath = "D:/TestImage.jpg";
+                //2.获得uptoken
+                string uptoken = Convert.ToString(root["data"]["token"]);
+                string key = "u3d.test.target?" + DateTime.Now;
+                string filePath = "D:/9924317EB4DC8E3E1A604108133F837D.target";
 
-                QiniuUtil.UploadFile(key, filePath, token, (string text) => {
+                QiniuUtil.UploadFile(key, filePath, uptoken, (string text) => {
                     Debug.Log(text);
                 });
             }

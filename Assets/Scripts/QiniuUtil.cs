@@ -8,7 +8,7 @@ using Qiniu.Storage;
 public class QiniuUtil
 {
     //上传本地文件
-    public static void UploadFile(string key, string filePath, string token, Action<string> callback)
+    public static void UploadFile(string key, string filePath, string uptoken, Action<string> callback)
     {
         //配置config
         Config config = new Config();
@@ -19,16 +19,15 @@ public class QiniuUtil
 
         //>表单上传
         UploadManager target = new UploadManager(config);
-        HttpResult result = target.UploadFile(filePath, key, token, null);
+        HttpResult result = target.UploadFile(filePath, key, uptoken, null);
         if (callback != null)
             callback(result.Text);
     }
 
     //上传字节流
-    public static void UploadData(string key, byte[] data, string token, Action<string> callback)
+    public static void UploadData(string key, byte[] data, string uptoken, Action<string> callback)
     {
         //byte[] data = System.IO.File.ReadAllBytes(filePath);
-
 
         //配置config
         Config config = new Config();
@@ -39,13 +38,13 @@ public class QiniuUtil
 
         //>表单上传
         UploadManager target = new UploadManager(config);
-        HttpResult result = target.UploadData(data, key, token, null);
+        HttpResult result = target.UploadData(data, key, uptoken, null);
         if (callback != null)
             callback(result.Text);
     }
 
     //断点续传
-    public static void UploadFileResum(string key, string filePath, string token, Action<string> callback)
+    public static void UploadFileResum(string key, string filePath, string uptoken, Action<string> callback)
     {
         //配置config
         Config config = new Config();
@@ -61,7 +60,7 @@ public class QiniuUtil
         };
 
         ResumableUploader ru = new ResumableUploader(config);
-        var result = ru.UploadFile(filePath, key, token, put);
+        var result = ru.UploadFile(filePath, key, uptoken, put);
         if (callback != null)
             callback(result.Text);
     }
